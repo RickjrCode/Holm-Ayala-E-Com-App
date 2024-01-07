@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import drinkLogo from "../assets/bitters-drink.png";
 
 import React from "react";
 
@@ -7,7 +8,10 @@ export default function Navigation() {
     <>
       <nav>
         <div className="logo">
-          <h1>Bitter Days</h1>
+          <h1>
+            {" "}
+            Bitter Days <img className="logo-image" src={drinkLogo} />{" "}
+          </h1>
         </div>
 
         <ul>

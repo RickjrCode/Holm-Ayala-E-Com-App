@@ -8,6 +8,7 @@ import {
   Navigation,
   Register,
   Home,
+  Shrubs,
 } from "./components";
 
 import React from "react";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/bitters" element={<Bitters />} />
+        <Route path="/shrubs" element={<Shrubs />} />
       </Routes>
     </>
   );
