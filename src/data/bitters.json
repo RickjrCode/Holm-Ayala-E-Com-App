@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Guava & Lemongrass",
+    "description": "The best game ever!",
+    "price": 10,
+    "inStock": true,
+    "imageUrl": "https://i.imgur.com/3J3wW9S.png"
+  }
+]
