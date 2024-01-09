@@ -1,4 +1,4 @@
-const API_URL = "https://localhost:5432/bitters-and-shrubs";
+const API_URL = "http://localhost:8080/api/";
 
 export async function registerUser() {
   try {
@@ -36,7 +36,7 @@ export async function loginUser() {
 
 export async function fetchAllBitters() {
   try {
-    const resp = await fetch(`${API_URL}/api/bitters`, {
+    const resp = await fetch(`${API_URL}/bitters`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -44,7 +44,7 @@ export async function fetchAllBitters() {
 
     const json = await resp.json();
     console.log(json);
-    return json.bitters;
+    return json;
   } catch (err) {
     console.error(err);
   }
