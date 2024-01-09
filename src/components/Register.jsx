@@ -33,7 +33,7 @@ export default function Register() {
             }}
           />
           <label for="name">
-            <i class="fa-solid fa-user"></i>First Name
+            <i class="fa-solid fa-user"></i> First Name
           </label>
         </div>
         <div className="input-group">
@@ -47,7 +47,7 @@ export default function Register() {
             }}
           />
           <label for="name">
-            <i class="fa-solid fa-user"></i>Last Name
+            <i class="fa-solid fa-user"></i> Last Name
           </label>
         </div>
         <div className="input-group">
@@ -61,7 +61,7 @@ export default function Register() {
             }}
           />
           <label for="email">
-            <i class="fa-solid fa-envelope"></i>Email
+            <i class="fa-solid fa-envelope"></i> Email
           </label>
         </div>
         <div className="input-group">
@@ -75,7 +75,7 @@ export default function Register() {
             }}
           />
           <label>
-            <i class="fa-solid fa-lock"></i>Password
+            <i class="fa-solid fa-lock"></i> Password
           </label>
         </div>
         <button type="submit">
