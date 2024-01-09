@@ -15,11 +15,14 @@ export default function Bitters() {
       .includes(searchBitters.toLocaleLowerCase());
   });
 
+  console.log(filteredBitters);
+
   async function getBitters() {
     try {
       const allBitters = await fetchAllBitters();
+      console.log(allBitters);
       setBitters(allBitters);
-      //   setStoredBitters(allBitters);
+      setStoredBitters(allBitters);
     } catch (err) {
       console.error(err);
     }
@@ -48,10 +51,9 @@ export default function Bitters() {
         </div>
         <div className="bitters-container">
           {filteredBitters.map((bitters) => (
-            <div className="bitters-card">
-              key={bitters.json}
+            <div className="bitters-card" key={bitters.id}>
               <h3>{bitters.name}</h3>
-              <img src={bitters.imageUrl} alt={bitters.name} />
+              <img src={bitters.imgUrl} alt={bitters.name} />
             </div>
           ))}
         </div>
