@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/ajaxHelper";
 
-export default function Login() {
+export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function Login() {
               setEmail(event.target.value);
             }}
           />{" "}
-          <label for="email">
+          <label htmlFor="email">
             <i class="fa-solid fa-envelope"></i> Email
           </label>
         </div>
@@ -46,7 +46,7 @@ export default function Login() {
               setPassword(event.target.value);
             }}
           />
-          <label>
+          <label htmlFor="password">
             <i class="fa-solid fa-lock"></i> Password
           </label>
         </div>
