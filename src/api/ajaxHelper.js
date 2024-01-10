@@ -1,16 +1,17 @@
 const API_URL = "http://localhost:8080/api/";
 
-export async function registerUser() {
+export async function registerUser(userObj) {
   try {
     const resp = await fetch(`${API_URL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(),
+      body: JSON.stringify(userObj),
     });
 
     const json = await resp.json();
+    console.log(json.token);
     return json.token;
   } catch (err) {
     console.error(err);

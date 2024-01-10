@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import drinkLogo from "../assets/bitters-drink.png";
-
 import React from "react";
 
 export default function Navigation() {
@@ -16,19 +15,19 @@ export default function Navigation() {
 
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to={"/"}>Home</Link>
           </li>
           <li>
-            <Link to="/account">Account</Link>
+            <Link to={"/account"}>Account</Link>
           </li>
           <li>
-            <Link to="/login">Log In</Link>
+            <Link to={"/login"}>Log In</Link>
           </li>
           <li>
-            <Link to="/register">Sign Up</Link>
+            <Link to={"/register"}>Sign Up</Link>
           </li>
           <li>
-            <Link to="/bitters">Our Bitters</Link>
+            <Link to={"/bitters"}>Our Bitters</Link>
           </li>
         </ul>
       </nav>

@@ -1,8 +1,9 @@
 import React from "react";
+import { registerUser } from "../api/ajaxHelper";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+export default function Register({ setToken }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +18,10 @@ export default function Register() {
       email,
       password,
     };
+    const token = await registerUser(userObj);
+    setToken(token);
+    navigate("/account");
+    console.log(userObj);
   }
 
   return (
@@ -25,7 +30,7 @@ export default function Register() {
         <div className="input-group">
           <input
             type="text"
-            id="name"
+            id="firstName"
             required
             value={firstName}
             onChange={(event) => {
@@ -33,13 +38,13 @@ export default function Register() {
             }}
           />
           <label htmlFor="name">
-            <i class="fa-solid fa-user"></i> First Name
+            <i className="fa-solid fa-user"></i> First Name
           </label>
         </div>
         <div className="input-group">
           <input
             type="text"
-            id="name"
+            id="lastName"
             required
             value={lastName}
             onChange={(event) => {
@@ -47,7 +52,7 @@ export default function Register() {
             }}
           />
           <label htmlFor="name">
-            <i class="fa-solid fa-user"></i> Last Name
+            <i className="fa-solid fa-user"></i> Last Name
           </label>
         </div>
         <div className="input-group">
@@ -61,7 +66,7 @@ export default function Register() {
             }}
           />
           <label htmlFor="email">
-            <i class="fa-solid fa-envelope"></i> Email
+            <i className="fa-solid fa-envelope"></i> Email
           </label>
         </div>
         <div className="input-group">
@@ -75,11 +80,11 @@ export default function Register() {
             }}
           />
           <label htmlFor="password">
-            <i class="fa-solid fa-lock"></i> Password
+            <i className="fa-solid fa-lock"></i> Password
           </label>
         </div>
         <button type="submit">
-          <i class="fa-solid fa-paper-plane"></i>Register
+          <i className="fa-solid fa-paper-plane"></i>Register
         </button>
       </form>
     </div>
