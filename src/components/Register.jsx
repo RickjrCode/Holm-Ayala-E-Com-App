@@ -32,7 +32,7 @@ export default function Register() {
               setFirstName(event.target.value);
             }}
           />
-          <label for="name">
+          <label htmlFor="name">
             <i class="fa-solid fa-user"></i> First Name
           </label>
         </div>
@@ -46,7 +46,7 @@ export default function Register() {
               setLastName(event.target.value);
             }}
           />
-          <label for="name">
+          <label htmlFor="name">
             <i class="fa-solid fa-user"></i> Last Name
           </label>
         </div>
@@ -60,7 +60,7 @@ export default function Register() {
               setEmail(event.target.value);
             }}
           />
-          <label for="email">
+          <label htmlFor="email">
             <i class="fa-solid fa-envelope"></i> Email
           </label>
         </div>
@@ -74,7 +74,7 @@ export default function Register() {
               setPassword(event.target.value);
             }}
           />
-          <label>
+          <label htmlFor="password">
             <i class="fa-solid fa-lock"></i> Password
           </label>
         </div>

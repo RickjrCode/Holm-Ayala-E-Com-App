@@ -17,14 +17,30 @@ export async function registerUser() {
   }
 }
 
-export async function loginUser() {
+export async function getUser(token) {
+  try {
+    const resp = await fetch(`${API_URL}/users`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await resp.json();
+    console.log(json);
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function loginUser(userObj) {
   try {
     const resp = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(),
+      body: JSON.stringify(userObj),
     });
 
     const json = await resp.json();
@@ -54,7 +70,7 @@ export const fetchSingleBitter = async () => {
   try {
     const resp = await fetch(`${API_URL}/bitters/${bittersId}`);
     const json = await resp.json();
-    return json.bitters;
+    return json;
   } catch (err) {
     console.error(err);
   }
