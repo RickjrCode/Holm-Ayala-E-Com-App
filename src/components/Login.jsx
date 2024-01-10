@@ -33,7 +33,7 @@ export default function Login({ setToken }) {
             }}
           />{" "}
           <label htmlFor="email">
-            <i class="fa-solid fa-envelope"></i> Email
+            <i className="fa-solid fa-envelope"></i> Email
           </label>
         </div>
         <div className="input-group">
@@ -47,11 +47,11 @@ export default function Login({ setToken }) {
             }}
           />
           <label htmlFor="password">
-            <i class="fa-solid fa-lock"></i> Password
+            <i className="fa-solid fa-lock"></i> Password
           </label>
         </div>
         <button type="submit">
-          <i class="fa-solid fa-right-to-bracket"></i> Login
+          <i className="fa-solid fa-right-to-bracket"></i> Login
         </button>
       </form>
     </div>
