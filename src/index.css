@@ -9,15 +9,17 @@ body {
 nav {
   width: 90%;
   margin: auto;
+  height: 65px;
   padding: 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: crimson;
 }
 
-.logo-image {
-  margin-right: 0;
-  width: 70px;
+h1 {
+  font-size: 60px;
+  font-family: alba;
 }
 
 .home {
@@ -106,15 +108,8 @@ button {
   cursor: pointer;
   width: 100px;
 }
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@media (max-width: 768px) {
+  .logo {
+    justify-content: flex-end;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+}
