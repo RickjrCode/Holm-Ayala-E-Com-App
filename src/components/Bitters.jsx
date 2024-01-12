@@ -52,7 +52,10 @@ export default function Bitters() {
             <div className="bitters-card" key={bitters.id}>
               <h3>{bitters.name}</h3>
               <img src={bitters.imgUrl} alt={bitters.name} />
-              <button onClick={() => navigate(`/details/${bitters.id}`)}>
+              <button
+                className="btn btn1"
+                onClick={() => navigate(`/account/${bitters.id}`)}
+              >
                 Details
               </button>
             </div>
