@@ -100,8 +100,10 @@ input:valid ~ label {
 }
 
 button {
-  background-color: blueviolet;
-  color: white;
+  font-size: large;
+  font-weight: bold;
+  background-color: crimson;
+  color: black;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
