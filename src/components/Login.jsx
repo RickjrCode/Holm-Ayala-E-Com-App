@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/ajaxHelper";
+import drinkLogo from "../assets/bitters-drink.png";
 
 export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ export default function Login({ setToken }) {
   }
   return (
     <div className="login-form">
+      <img id="logo-img" src={drinkLogo} alt="Drink Logo" />
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <input

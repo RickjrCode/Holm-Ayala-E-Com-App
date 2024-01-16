@@ -7,7 +7,7 @@ body {
 }
 
 nav {
-  width: 90%;
+  width: 93%;
   margin: auto;
   height: 65px;
   padding: 35px;
@@ -48,6 +48,7 @@ video {
 }
 
 .register-form {
+  position: relative;
   width: 100%;
   height: 100vh;
   background-position: center;
@@ -58,6 +59,7 @@ video {
 }
 
 .login-form {
+  position: relative;
   width: 100%;
   height: 100vh;
   background-position: center;
@@ -65,6 +67,15 @@ video {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#logo-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .input-group {
@@ -110,6 +121,7 @@ button {
   cursor: pointer;
   width: 100px;
 }
+
 @media (max-width: 768px) {
   .logo {
     justify-content: flex-end;

@@ -96,6 +96,7 @@
   transition: transform 0.5s;
   transform-origin: 0 0;
   transition-timing-function: cubic-bezier(0.5, 1, 6, 0.4, 0.7);
+  border-radius: 5px;
 }
 
 .btn1::before {
@@ -104,5 +105,4 @@
 
 .btn1:hover::before {
   transform: scaleX(1);
-  border-radius: 5px;
 }
