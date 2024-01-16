@@ -2,6 +2,7 @@ import React from "react";
 import { registerUser } from "../api/ajaxHelper";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import drinkLogo from "../assets/bitters-drink.png";
 
 export default function Register({ setToken }) {
   const [firstName, setFirstName] = useState("");
@@ -26,6 +27,7 @@ export default function Register({ setToken }) {
 
   return (
     <div className="register-form">
+      <img id="logo-img" src={drinkLogo} alt="Drink Logo" />
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <input
