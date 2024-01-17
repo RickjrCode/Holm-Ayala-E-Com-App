@@ -1,6 +1,5 @@
-import React from "react";
-import { fetchAllBitters } from "../api/ajaxHelper";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate } from "react-router-dom";
 import "../Bitters.css";
 
@@ -10,15 +9,15 @@ export default function Bitters() {
   const [storedBitters, setStoredBitters] = useState([]);
   const navigate = useNavigate();
 
-  const filteredBitters = storedBitters.filter((bitters) => {
-    return bitters.name
-      .toLowerCase()
-      .includes(searchBitters.toLocaleLowerCase());
-  });
+  const filteredBitters = storedBitters
+    .filter((product) => {
+      return product.name.toLowerCase().includes(searchBitters.toLowerCase());
+    })
+    .filter((product) => product.type === "bitters");
 
   async function getBitters() {
     try {
-      const allBitters = await fetchAllBitters();
+      const allBitters = await fetchAllProducts();
       setBitters(allBitters);
       setStoredBitters(allBitters);
     } catch (err) {
@@ -48,13 +47,13 @@ export default function Bitters() {
           <h2>Our Bitters</h2>
         </div>
         <div className="bitters-container">
-          {filteredBitters.map((bitters) => (
-            <div className="bitters-card" key={bitters.id}>
-              <h3>{bitters.name}</h3>
-              <img src={bitters.imgUrl} alt={bitters.name} />
+          {filteredBitters.map((product) => (
+            <div className="bitters-card" key={product.id}>
+              <h3>{product.name}</h3>
+              <img src={product.imgUrl} alt={product.name} />
               <button
                 className="btn btn1"
-                onClick={() => navigate(`/account/${bitters.id}`)}
+                onClick={() => navigate(`/account/${product.id}`)}
               >
                 Details
               </button>

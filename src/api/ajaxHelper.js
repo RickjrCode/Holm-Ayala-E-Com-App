@@ -51,17 +51,17 @@ export async function loginUser(userObj) {
   }
 }
 
-export async function fetchAllBitters() {
+export async function fetchAllProducts() {
   try {
-    const resp = await fetch(`${API_URL}/bitters`, {
+    const resp = await fetch(`${API_URL}/products`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const json = await resp.json();
-    console.log(json);
-    return json;
+    const products = await resp.json();
+    console.log(products);
+    return products;
   } catch (err) {
     console.error(err);
   }
