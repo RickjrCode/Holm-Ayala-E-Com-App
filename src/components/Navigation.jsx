@@ -53,6 +53,9 @@ export default function Navigation() {
               Our Bitters
             </Link>
           </li>
+          <Link to={"/shrubs"} onClick={toggleMenu}>
+            Our Shrubs
+          </Link>
         </ul>
       </nav>
 
