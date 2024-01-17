@@ -60,6 +60,11 @@ export default function Bitters() {
             </div>
           ))}
         </div>
+        <div className="bottom-center">
+          <button className="btn btn1" onClick={() => navigate("/shrubs")}>
+            Go to Shrubs
+          </button>
+        </div>
       </div>
     </>
   );

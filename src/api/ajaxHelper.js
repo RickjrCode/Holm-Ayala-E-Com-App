@@ -67,11 +67,11 @@ export async function fetchAllProducts() {
   }
 }
 
-export const fetchSingleBitter = async () => {
+export const fetchSingleProduct = async () => {
   try {
-    const resp = await fetch(`${API_URL}/bitters/${bittersId}`);
-    const json = await resp.json();
-    return json;
+    const resp = await fetch(`${API_URL}/products/${productsId}`);
+    const products = await resp.json();
+    return products;
   } catch (err) {
     console.error(err);
   }

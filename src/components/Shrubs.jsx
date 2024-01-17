@@ -61,6 +61,11 @@ export default function Shrubs() {
             </div>
           ))}
         </div>
+        <div className="bottom-center">
+          <button className="btn btn1" onClick={() => navigate("/bitters")}>
+            Go to Bitters
+          </button>
+        </div>
       </div>
     </>
   );
