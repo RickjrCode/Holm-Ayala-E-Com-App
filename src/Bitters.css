@@ -111,7 +111,7 @@ button:hover::before {
 .bottom-center {
   position: relative;
   text-align: center;
-  top: 90px;
+  top: 100px;
 }
 
 .bottom-center button {

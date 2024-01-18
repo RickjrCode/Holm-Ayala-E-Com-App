@@ -1,19 +1,19 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate } from "react-router-dom";
+import "../Bitters.css";
 
 export default function Shrubs() {
   const [shrubs, setShrubs] = useState([]);
   const [searchShrubs, setSearchShrubs] = useState("");
   const [storedShrubs, setStoredShrubs] = useState([]);
+  const [showDescription, setShowDescription] = useState({});
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
   const filteredShrubs = storedShrubs
     .filter((product) => {
-      return product.name
-        .toLowerCase()
-        .includes(searchShrubs.toLocaleLowerCase());
+      return product.name.toLowerCase().includes(searchShrubs.toLowerCase());
     })
     .filter((product) => product.type === "shrubs");
 
@@ -22,6 +22,12 @@ export default function Shrubs() {
       const allShrubs = await fetchAllProducts();
       setShrubs(allShrubs);
       setStoredShrubs(allShrubs);
+
+      const initialShowDescription = allShrubs.reduce(
+        (acc, product) => ({ ...acc, [product.id]: false }),
+        {}
+      );
+      setShowDescription(initialShowDescription);
     } catch (err) {
       console.error(err);
     }
@@ -30,6 +36,22 @@ export default function Shrubs() {
   useEffect(() => {
     getShrubs();
   }, []);
+
+  const toggleDescription = (productId) => {
+    setShowDescription((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
+  };
+
+  const handleCheckOut = () => {
+    if (token) {
+      console.log("Perform check out action");
+    } else {
+      navigate("/account");
+    }
+  };
+
   return (
     <>
       <div className="page-container">
@@ -54,10 +76,18 @@ export default function Shrubs() {
               <img src={product.imgUrl} alt={product.name} />
               <button
                 className="btn btn1"
-                onClick={() => navigate(`/account/${product.id}`)}
+                onClick={() => toggleDescription(product.id)}
               >
                 Details
               </button>
+              {showDescription[product.id] && (
+                <>
+                  <p className="product-description">{product.description}</p>
+                  <button className="btn btn1" onClick={handleCheckOut}>
+                    {token ? "Proceed to Checkout" : "Check Out"}
+                  </button>
+                </>
+              )}
             </div>
           ))}
         </div>
