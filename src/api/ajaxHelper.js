@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/";
+const API_URL = "http://localhost:8080/api";
 
 export async function registerUser(userObj) {
   try {
