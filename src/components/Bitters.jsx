@@ -7,6 +7,8 @@ export default function Bitters() {
   const [bitters, setBitters] = useState([]);
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
+  const [showDescription, setShowDescription] = useState({});
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
   const filteredBitters = storedBitters
@@ -20,6 +22,12 @@ export default function Bitters() {
       const allBitters = await fetchAllProducts();
       setBitters(allBitters);
       setStoredBitters(allBitters);
+
+      const initialShowDescription = allBitters.reduce(
+        (acc, product) => ({ ...acc, [product.id]: false }),
+        {}
+      );
+      setShowDescription(initialShowDescription);
     } catch (err) {
       console.error(err);
     }
@@ -28,6 +36,21 @@ export default function Bitters() {
   useEffect(() => {
     getBitters();
   }, []);
+
+  const toggleDescription = (productId) => {
+    setShowDescription((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
+  };
+
+  const handleCheckOut = () => {
+    if (token) {
+      console.log("Perform check out action");
+    } else {
+      navigate("/account");
+    }
+  };
 
   return (
     <>
@@ -53,10 +76,18 @@ export default function Bitters() {
               <img src={product.imgUrl} alt={product.name} />
               <button
                 className="btn btn1"
-                onClick={() => navigate(`/account/${product.id}`)}
+                onClick={() => toggleDescription(product.id)}
               >
                 Details
               </button>
+              {showDescription[product.id] && (
+                <>
+                  <p className="product-description">{product.description}</p>
+                  <button className="btn btn1" onClick={handleCheckOut}>
+                    {token ? "Proceed to Checkout" : "Check Out"}
+                  </button>
+                </>
+              )}
             </div>
           ))}
         </div>
