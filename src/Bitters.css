@@ -1,0 +1,159 @@
+.page-container {
+  text-align: center;
+}
+
+.search-bar {
+  margin: 20px auto;
+  margin-bottom: 20px;
+  max-width: 400px;
+}
+
+.bitters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.bitters-card {
+  width: 300px;
+  margin: 20px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+.bitters-card:hover {
+  transform: scale(1.05);
+}
+
+.bitters-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.bitters-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-container button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+  background-color: #45a049;
+}
+
+.button-style {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.btn {
+  background: none;
+  border: 2px solid #000;
+  font-family: "montserrat" sans-serif;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  min-width: 200px;
+  margin: 10px;
+  cursor: pointer;
+  transition: color 0.4s linear;
+}
+
+.btn:hover {
+  color: #fff;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: crimson;
+  z-index: -1;
+  transition: transform 0.5s;
+  transform-origin: 0 0;
+  transition-timing-function: cubic-bezier(0.5, 1, 6, 0.4, 0.7);
+  border-radius: 5px;
+}
+
+button::before {
+  transform: scaleX(0);
+}
+
+button:hover::before {
+  transform: scaleX(1);
+}
+
+.bottom-center {
+  position: relative;
+  text-align: center;
+  top: 100px;
+}
+
+.bottom-center button {
+  background: none;
+  border: 2px solid #000;
+  font-family: "montserrat", sans-serif;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  min-width: 200px;
+  margin: 10px;
+  cursor: pointer;
+  transition: color 0.4s linear;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom-center button:hover {
+  color: #fff;
+}
+
+.bottom-center button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: crimson;
+  z-index: -1;
+  transition: transform 0.5s;
+  transform-origin: 0 0;
+  transition-timing-function: cubic-bezier(0.5, 1, 6, 0.4, 0.7);
+}
+
+.bottom-center button::before {
+  transform: scaleX(0);
+  border-radius: 5px;
+}
+
+.bottom-center button:hover::before {
+  transform: scaleX(1);
+  border-radius: 5px;
+}
