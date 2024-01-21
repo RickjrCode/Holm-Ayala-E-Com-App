@@ -5,14 +5,14 @@ import { loginUser } from "../api/ajaxHelper";
 import drinkLogo from "../assets/bitters-drink.png";
 
 export default function Login({ setToken }) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     const userObj = {
-      email,
+      username,
       password,
     };
     const token = await loginUser(userObj);
@@ -29,9 +29,9 @@ export default function Login({ setToken }) {
             type="email"
             id="email"
             required
-            value={email}
+            value={username}
             onChange={(event) => {
-              setEmail(event.target.value);
+              setUsername(event.target.value);
             }}
           />{" "}
           <label htmlFor="email">
