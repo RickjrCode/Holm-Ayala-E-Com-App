@@ -5,66 +5,42 @@ import { useNavigate } from "react-router-dom";
 import drinkLogo from "../assets/bitters-drink.png";
 
 export default function Register({ setToken }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     const userObj = {
-      firstName,
-      lastName,
-      email,
+      username,
       password,
     };
-    const token = await registerUser(userObj);
-    setToken(token);
-    navigate("/account");
-    console.log(userObj);
-  }
 
+    try {
+      const token = await registerUser(userObj);
+      console.log("Token after registration:", token);
+      console.log(userObj);
+      setToken(token);
+      navigate("/account");
+    } catch (error) {
+      console.error("Error during registration:", error);
+      // Handle registration error (e.g., display an error message)
+    }
+  }
   return (
     <div className="register-form">
       <img id="logo-img" src={drinkLogo} alt="Drink Logo" />
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <input
-            type="text"
-            id="firstName"
-            required
-            value={firstName}
-            onChange={(event) => {
-              setFirstName(event.target.value);
-            }}
-          />
-          <label htmlFor="name">
-            <i className="fa-solid fa-user"></i> First Name
-          </label>
-        </div>
-        <div className="input-group">
-          <input
-            type="text"
-            id="lastName"
-            required
-            value={lastName}
-            onChange={(event) => {
-              setLastName(event.target.value);
-            }}
-          />
-          <label htmlFor="name">
-            <i className="fa-solid fa-user"></i> Last Name
-          </label>
-        </div>
-        <div className="input-group">
-          <input
             type="email"
             id="email"
             required
-            value={email}
+            value={username}
             onChange={(event) => {
-              setEmail(event.target.value);
+              setUsername(event.target.value);
             }}
           />
           <label htmlFor="email">
