@@ -24,14 +24,14 @@ export default function Account({ token }) {
     }
   }, [token]);
 
-  const isLoggedIn = user && user.token;
+  // const isLoggedIn = user && user.token;
 
   return (
     <div className="account">
       <div className="account-overlay">
         <video src={drinkMoreVid} autoPlay loop muted />
         <div className="account-content">
-          {isLoggedIn ? (
+          {user && user.token ? (
             <>
               <h2>Welcome back, {user.username}!</h2>
 
