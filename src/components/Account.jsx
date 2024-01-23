@@ -25,25 +25,26 @@ export default function Account({ token }) {
   }, [token]);
 
   // const isLoggedIn = user && user.token;
-
+  console.log(product);
   return (
     <div className="account">
       <div className="account-overlay">
         <video src={drinkMoreVid} autoPlay loop muted />
         <div className="account-content">
-          {user && user.token ? (
+          {user && token ? (
             <>
               <h2>Welcome back, {user.username}!</h2>
 
-              {product && (
-                <div>
-                  <h3>{product.name}</h3>
-                  <img src={product.imgUrl} alt={product.name} />
-                  <p>In Stock: {product.inStock}</p>
-                  <p>Price: {product.price}</p>
-                  <button className="btn btn1">Buy Now</button>
-                </div>
-              )}
+              {product &&
+                product.map((product) => (
+                  <div key={product.id}>
+                    <h3>{product.name}</h3>
+                    <img src={product.imgUrl} alt={product.name} />
+                    <p>In Stock: {product.inStock}</p>
+                    <p>Price: {product.price}</p>
+                    <button className="btn btn1">Buy Now</button>
+                  </div>
+                ))}
             </>
           ) : (
             <>
