@@ -76,3 +76,12 @@ export const fetchSingleProduct = async () => {
     console.error(err);
   }
 };
+
+export const getCart = async (userId) => {
+  try {
+    const resp = await axios.get(`${API_URL}/orders/${userId}`);
+    return resp.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

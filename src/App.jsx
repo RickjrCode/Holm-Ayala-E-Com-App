@@ -10,6 +10,7 @@ import {
   Register,
   Home,
   Shrubs,
+  Cart,
 } from "./components";
 
 import React from "react";
@@ -38,6 +39,7 @@ function App() {
         <Route path="/register" element={<Register setToken={setToken} />} />
         <Route path="/bitters" element={<Bitters />} />
         <Route path="/shrubs" element={<Shrubs />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </>
   );
