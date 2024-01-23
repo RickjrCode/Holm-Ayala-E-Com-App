@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../Bitters.css";
 
-export default function Bitters({ token }) {
+export default function Bitters({ token, userId }) {
   const [bitters, setBitters] = useState([]);
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
@@ -42,7 +42,7 @@ export default function Bitters({ token }) {
   };
 
   const handleCheckOut = async () => {
-    const userId = "user123";
+    // const userId = "user123";
 
     try {
       const cartData = await getCart(userId);
@@ -51,7 +51,7 @@ export default function Bitters({ token }) {
       console.error("Error fetching cart:", error);
     }
   };
-
+  console.log(token);
   return (
     <>
       <div className="page-container">
