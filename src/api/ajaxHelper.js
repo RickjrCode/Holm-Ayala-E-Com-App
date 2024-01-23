@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:8080/api";
+import axios from "axios";
 
 export async function registerUser(userObj) {
   try {
@@ -79,7 +80,8 @@ export const fetchSingleProduct = async () => {
 
 export const getCart = async (userId) => {
   try {
-    const resp = await axios.get(`${API_URL}/orders/${userId}`);
+    const resp = await axios.get(`${API_URL}/orders/user/${userId}`);
+    console.log(resp.data);
     return resp.data;
   } catch (err) {
     console.error(err);
