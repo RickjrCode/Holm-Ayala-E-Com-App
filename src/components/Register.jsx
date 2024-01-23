@@ -22,10 +22,9 @@ export default function Register({ setToken }) {
       const token = await registerUser(userObj);
       console.log(userObj);
       setToken(token);
-      navigate("/account");
+      navigate("/bitters", { state: { username } });
     } catch (error) {
       console.error("Error during registration:", error);
-      // Handle registration error (e.g., display an error message)
     }
   }
   return (
