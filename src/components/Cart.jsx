@@ -1,57 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { getCart } from "../api/ajaxHelper";
-import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Cart = () => {
-  const [cartData, setCartData] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const userId = "user123";
-
-    const fetchCartData = async () => {
-      try {
-        const data = await getCart(userId);
-        setCartData(data);
-      } catch (error) {
-        console.error("Error fetching cart:", error);
-      }
-    };
-
-    fetchCartData();
+    // Get cart items from local storage
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
   }, []);
 
-  const total = cartData.reduce((acc, product) => acc + product.price, 0);
+  const removeFromCart = (productId) => {
+    const updatedCartItems = cartItems.filter((item) => item.id !== productId);
+
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+  };
+
+  const total = cartItems.reduce((acc, product) => acc + product.price, 0);
 
   return (
     <div>
       <h2>Your Cart</h2>
-
-      {cartData.length === 0 ? (
-        <>
-          <p>Cart is empty</p>
-          <div>
-            <Link to="/login">
-              <button>Sign In</button>
-            </Link>
-            <span> or </span>
-            <Link to="/register">
-              <button>Sign Up</button>
-            </Link>
-          </div>
-        </>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty</p>
       ) : (
-        <>
-          {cartData.map((product) => (
-            <div key={product.id}>
-              <p>{product.imgUrl}</p>
-              <p>{product.name}</p>
-              <p>{product.price}</p>
-            </div>
-          ))}
-          <p>Total Price: {total}</p>
-        </>
+        cartItems.map((product) => (
+          <div key={product.id}>
+            <p>{product.imgUrl}</p>
+            <p>{product.name}</p>
+            <p>{product.price}</p>
+            <button onClick={() => removeFromCart(product.id)}>Remove</button>
+          </div>
+        ))
       )}
+      <p>Total Price: {total}</p>
     </div>
   );
 };

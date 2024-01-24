@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllProducts, getCart } from "../api/ajaxHelper";
+import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../Bitters.css";
@@ -9,6 +9,7 @@ export default function Bitters({ token, userId }) {
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
   const [showDescription, setShowDescription] = useState({});
+  const [cartItems, setCartItems] = useState([]); // State variable for cart items
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,17 +42,26 @@ export default function Bitters({ token, userId }) {
     }));
   };
 
-  const handleCheckOut = async () => {
-    // const userId = "user123";
+  // const handleCheckOut = async () => {
+  //   try {
+  //     console.log("Cart data:", cartItems);
+  //   } catch (error) {
+  //     console.error("Error fetching cart:", error);
+  //   }
+  // };
 
-    try {
-      const cartData = await getCart(userId);
-      console.log("Cart data:", cartData);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
+  const handleAddToCart = (product) => {
+    if (token) {
+      const updatedCartItems = [...cartItems, product];
+      setCartItems(updatedCartItems);
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    } else {
+      navigate("/account");
     }
   };
+
   console.log(token);
+
   return (
     <>
       <div className="page-container">
@@ -91,9 +101,16 @@ export default function Bitters({ token, userId }) {
                 </button>
                 {showDescription[product.id] && (
                   <>
-                    <p className="product-description">{product.description}</p>
+                    {/* <p className="product-description">{product.description}</p>
                     <button className="btn btn1" onClick={handleCheckOut}>
-                      {token ? "Proceed to Checkout" : "Check Out"}
+                      {token ? "Add to Cart" : "Check Out"}
+                    </button> */}
+                    {/* Updated button for adding to cart or navigating to account */}
+                    <button
+                      className="btn btn1"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      {token ? "Add to Cart" : "Go to Account"}
                     </button>
                   </>
                 )}
