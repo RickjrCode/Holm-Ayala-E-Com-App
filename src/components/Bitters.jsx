@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllProducts, getCart } from "../api/ajaxHelper";
+import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useUserContext } from "../userContext";
 import axios from "axios";
 import "../Bitters.css";
 
-export default function Bitters({ token, userId }) {
+export default function Bitters() {
+  const { token, setToken, clearToken } = useUserContext();
+
   const [bitters, setBitters] = useState([]);
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
   const [showDescription, setShowDescription] = useState({});
+  const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,6 +21,9 @@ export default function Bitters({ token, userId }) {
   useEffect(() => {
     async function getBitters() {
       try {
+        const inToken = localStorage.getItem("token");
+        setToken(inToken);
+
         const allBitters = await fetchAllProducts();
         setBitters(allBitters);
         setStoredBitters(allBitters);
@@ -32,7 +39,7 @@ export default function Bitters({ token, userId }) {
     }
 
     getBitters();
-  }, []);
+  }, [setToken]);
 
   const toggleDescription = (productId) => {
     setShowDescription((prev) => ({
@@ -40,18 +47,26 @@ export default function Bitters({ token, userId }) {
       [productId]: !prev[productId],
     }));
   };
-
-  const handleCheckOut = async () => {
-    // const userId = "user123";
-
-    try {
-      const cartData = await getCart(userId);
-      console.log("Cart data:", cartData);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
+  //give user access to check out items once they have a token & add to cart
+  /*Clone the existing cart items array, Update the state with the new cart items,
+  Update the local storage with the new cart items*/
+  const handleAddToCart = (product) => {
+    if (token) {
+      const updatedCartItems = [...cartItems, product];
+      setCartItems(updatedCartItems);
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    } else {
+      navigate("/account");
     }
   };
+
+  const handleSignOut = () => {
+    clearToken();
+    navigate("/");
+  };
+
   console.log(token);
+
   return (
     <>
       <div className="page-container">
@@ -69,6 +84,9 @@ export default function Bitters({ token, userId }) {
             onChange={(e) => setSearchBitters(e.target.value.toLowerCase())}
           />
         </div>
+        <button className="btn btn1" onClick={handleSignOut}>
+          Sign Out
+        </button>
 
         <div className="bitters-name">
           <h2>Our Bitters</h2>
@@ -91,9 +109,13 @@ export default function Bitters({ token, userId }) {
                 </button>
                 {showDescription[product.id] && (
                   <>
-                    <p className="product-description">{product.description}</p>
-                    <button className="btn btn1" onClick={handleCheckOut}>
-                      {token ? "Proceed to Checkout" : "Check Out"}
+                    <p>{product.description}</p>
+
+                    <button
+                      className="btn btn1"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      {token ? "Add to Cart" : "Go to Account"}
                     </button>
                   </>
                 )}
