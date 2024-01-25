@@ -9,7 +9,7 @@ export default function Bitters({ token, userId }) {
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
   const [showDescription, setShowDescription] = useState({});
-  const [cartItems, setCartItems] = useState([]); // State variable for cart items
+  const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,15 +41,9 @@ export default function Bitters({ token, userId }) {
       [productId]: !prev[productId],
     }));
   };
-
-  // const handleCheckOut = async () => {
-  //   try {
-  //     console.log("Cart data:", cartItems);
-  //   } catch (error) {
-  //     console.error("Error fetching cart:", error);
-  //   }
-  // };
-
+  //give user access to check out items once they have a token & add to cart
+  /*Clone the existing cart items array, Update the state with the new cart items,
+  Update the local storage with the new cart items*/
   const handleAddToCart = (product) => {
     if (token) {
       const updatedCartItems = [...cartItems, product];
@@ -101,11 +95,8 @@ export default function Bitters({ token, userId }) {
                 </button>
                 {showDescription[product.id] && (
                   <>
-                    {/* <p className="product-description">{product.description}</p>
-                    <button className="btn btn1" onClick={handleCheckOut}>
-                      {token ? "Add to Cart" : "Check Out"}
-                    </button> */}
-                    {/* Updated button for adding to cart or navigating to account */}
+                    <p>{product.description}</p>
+
                     <button
                       className="btn btn1"
                       onClick={() => handleAddToCart(product)}
