@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import "./App.css";
-=======
-
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "./api/ajaxHelper";
@@ -15,7 +11,7 @@ import {
   Shrubs,
   Cart,
 } from "./components";
->>>>>>> 4f543489f75472123f144422ba12fe42c5b840ba
+import "./index.css";
 
 import React from "react";
 
