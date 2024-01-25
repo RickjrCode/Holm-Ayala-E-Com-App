@@ -5,6 +5,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "./api/ajaxHelper";
+import { UserProvider } from "./userContext";
 import {
   Account,
   Bitters,
