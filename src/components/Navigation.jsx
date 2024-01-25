@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import drinkLogo from "../assets/bitters-drink.png";
-import React, { useState } from "react";
 import "../Hamburger.css";
 
 const Hamburger = ({ isMenuOpen, toggleMenu }) => (
@@ -14,6 +14,10 @@ const Hamburger = ({ isMenuOpen, toggleMenu }) => (
 export default function Navigation() {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
+  const handleCartClick = () => {
+    history.push("/cart");
+  };
+
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
@@ -26,6 +30,12 @@ export default function Navigation() {
         <div className="logo">
           <h1>BITTER DAYS</h1>
         </div>
+
+        <li>
+          <Link to={"/cart"} onClick={handleCartClick}>
+            Cart
+          </Link>
+        </li>
 
         <ul className={`menu-items ${isMenuOpen ? "open" : ""}`}>
           <li>
@@ -53,13 +63,14 @@ export default function Navigation() {
               Our Bitters
             </Link>
           </li>
-          <Link to={"/shrubs"} onClick={toggleMenu}>
-            Our Shrubs
-          </Link>
+
+          <li>
+            <Link to={"/shrubs"} onClick={toggleMenu}>
+              Our Shrubs
+            </Link>
+          </li>
         </ul>
       </nav>
-
-      {/* <img id="logo-img" src={drinkLogo} alt="Drink Logo" /> */}
     </>
   );
 }
