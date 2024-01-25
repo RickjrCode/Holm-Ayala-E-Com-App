@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useUserContext } from "../userContext";
 import axios from "axios";
 import "../Bitters.css";
 
-export default function Bitters({ token, userId }) {
+export default function Bitters() {
+  const { token, setToken, clearToken } = useUserContext();
+
   const [bitters, setBitters] = useState([]);
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
@@ -18,6 +21,9 @@ export default function Bitters({ token, userId }) {
   useEffect(() => {
     async function getBitters() {
       try {
+        const inToken = localStorage.getItem("token");
+        setToken(inToken);
+
         const allBitters = await fetchAllProducts();
         setBitters(allBitters);
         setStoredBitters(allBitters);
@@ -33,7 +39,7 @@ export default function Bitters({ token, userId }) {
     }
 
     getBitters();
-  }, []);
+  }, [setToken]);
 
   const toggleDescription = (productId) => {
     setShowDescription((prev) => ({
@@ -52,6 +58,11 @@ export default function Bitters({ token, userId }) {
     } else {
       navigate("/account");
     }
+  };
+
+  const handleSignOut = () => {
+    clearToken();
+    navigate("/");
   };
 
   console.log(token);
@@ -73,6 +84,9 @@ export default function Bitters({ token, userId }) {
             onChange={(e) => setSearchBitters(e.target.value.toLowerCase())}
           />
         </div>
+        <button className="btn btn1" onClick={handleSignOut}>
+          Sign Out
+        </button>
 
         <div className="bitters-name">
           <h2>Our Bitters</h2>

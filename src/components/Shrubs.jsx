@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useUserContext } from "../userContext";
 import axios from "axios";
 import "../Bitters.css";
 
-export default function Shrubs({ token, userId }) {
+export default function Shrubs() {
+  const { token, setToken, clearToken } = useUserContext();
+
   const [shrubs, setShrubs] = useState([]);
   const [searchShrubs, setSearchShrubs] = useState("");
   const [storedShrubs, setStoredShrubs] = useState([]);
@@ -22,6 +25,9 @@ export default function Shrubs({ token, userId }) {
 
     async function getShrubs() {
       try {
+        const inToken = localStorage.getItem("token");
+        setToken(inToken);
+
         const allShrubs = await fetchAllProducts();
         setShrubs(allShrubs);
         setStoredShrubs(allShrubs);
@@ -37,7 +43,7 @@ export default function Shrubs({ token, userId }) {
     }
 
     getShrubs();
-  }, []);
+  }, [setToken]);
 
   const toggleDescription = (productId) => {
     setShowDescription((prev) => ({
@@ -63,6 +69,14 @@ export default function Shrubs({ token, userId }) {
       navigate("/account");
     }
   };
+
+  const handleSignOut = () => {
+    clearToken();
+    navigate("/");
+  };
+
+  console.log(token);
+
   return (
     <>
       <div className="page-container">
@@ -82,6 +96,9 @@ export default function Shrubs({ token, userId }) {
             }}
           />
         </div>
+        <button className="btn btn1" onClick={handleSignOut}>
+          Sign Out
+        </button>
 
         <div className="bitters-name">
           <h2>Our Shrubs</h2>
