@@ -2,27 +2,20 @@ import React, { useEffect, useState } from "react";
 import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../userContext";
-import axios from "axios";
 import "../Bitters.css";
 
 export default function Shrubs() {
   const { token, setToken, clearToken } = useUserContext();
-
   const [shrubs, setShrubs] = useState([]);
   const [searchShrubs, setSearchShrubs] = useState("");
   const [storedShrubs, setStoredShrubs] = useState([]);
   const [showDescription, setShowDescription] = useState({});
-  const [cartItems, setCartItems] = useState([]);
-  const Location = useLocation();
+  const [shrubsCartItems, setShrubsCartItems] = useState([]); // Separate state for shrubs cart
   const navigate = useNavigate();
-
-  const { username } = Location.state || {};
+  const location = useLocation();
+  const { username } = location.state || {};
 
   useEffect(() => {
-    const filteredShrubs = storedShrubs.filter((product) => {
-      return product.name.toLowerCase().includes(searchShrubs.toLowerCase());
-    });
-
     async function getShrubs() {
       try {
         const inToken = localStorage.getItem("token");
@@ -52,19 +45,11 @@ export default function Shrubs() {
     }));
   };
 
-  // const handleCheckOut = () => {
-  //   if (token) {
-  //     console.log("Perform check out action");
-  //   } else {
-  //     navigate("/account");
-  //   }
-  // };
-
   const handleAddToCart = (product) => {
     if (token) {
-      const updatedCartItems = [...cartItems, product];
-      setCartItems(updatedCartItems);
-      LocalStorage.setItems("cartItems", JSON.stringify(updatedCartItems));
+      const updatedCartItems = [...shrubsCartItems, product];
+      setShrubsCartItems(updatedCartItems);
+      localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
     } else {
       navigate("/account");
     }
@@ -75,14 +60,12 @@ export default function Shrubs() {
     navigate("/");
   };
 
-  console.log(token);
-
   return (
     <>
       <div className="page-container">
         {token ? (
           <div className="welcome-message">
-            <h2>Welcome back, {username} !</h2>{" "}
+            <h2>Welcome back, {username}!</h2>
           </div>
         ) : null}
 
@@ -91,9 +74,7 @@ export default function Shrubs() {
             type="text"
             placeholder="Search our Shrubs"
             value={searchShrubs}
-            onChange={(e) => {
-              setSearchShrubs(e.target.value.toLowerCase());
-            }}
+            onChange={(e) => setSearchShrubs(e.target.value.toLowerCase())}
           />
         </div>
         <button className="btn btn1" onClick={handleSignOut}>
@@ -105,6 +86,9 @@ export default function Shrubs() {
         </div>
         <div className="bitters-container">
           {storedShrubs
+            .filter((product) =>
+              product.name.toLowerCase().includes(searchShrubs.toLowerCase())
+            )
             .filter((product) => product.type === "shrubs")
             .map((product) => (
               <div className="bitters-card" key={product.id}>
@@ -119,6 +103,7 @@ export default function Shrubs() {
                 {showDescription[product.id] && (
                   <>
                     <p>{product.description}</p>
+
                     <button
                       className="btn btn1"
                       onClick={() => handleAddToCart(product)}

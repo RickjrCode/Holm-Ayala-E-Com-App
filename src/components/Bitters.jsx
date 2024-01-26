@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react";
 import { fetchAllProducts } from "../api/ajaxHelper";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../userContext";
-import axios from "axios";
 import "../Bitters.css";
 
 export default function Bitters() {
   const { token, setToken, clearToken } = useUserContext();
-
   const [bitters, setBitters] = useState([]);
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
   const [showDescription, setShowDescription] = useState({});
-  const [cartItems, setCartItems] = useState([]);
+  const [bittersCartItems, setBittersCartItems] = useState([]); // Separate state for bitters cart
   const navigate = useNavigate();
   const location = useLocation();
-
   const { username } = location.state || {};
 
   useEffect(() => {
@@ -47,14 +44,15 @@ export default function Bitters() {
       [productId]: !prev[productId],
     }));
   };
-  //give user access to check out items once they have a token & add to cart
-  /*Clone the existing cart items array, Update the state with the new cart items,
-  Update the local storage with the new cart items*/
+
   const handleAddToCart = (product) => {
     if (token) {
-      const updatedCartItems = [...cartItems, product];
-      setCartItems(updatedCartItems);
-      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+      const updatedCartItems = [...bittersCartItems, product];
+      setBittersCartItems(updatedCartItems);
+      localStorage.setItem(
+        "bittersCartItems",
+        JSON.stringify(updatedCartItems)
+      );
     } else {
       navigate("/account");
     }
@@ -64,8 +62,6 @@ export default function Bitters() {
     clearToken();
     navigate("/");
   };
-
-  console.log(token);
 
   return (
     <>

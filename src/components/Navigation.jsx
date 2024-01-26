@@ -30,13 +30,11 @@ export default function Navigation() {
         <div className="logo">
           <h1>BITTER DAYS</h1>
         </div>
-
-        <li>
-          <Link to={"/cart"} onClick={handleCartClick}>
-            Cart
+        <div className="cart-icon">
+          <Link className="cart-style" to={"/cart"} onClick={handleCartClick}>
+            <i class="fa-sharp fa-solid fa-cart-shopping fa-2xl"></i>
           </Link>
-        </li>
-
+        </div>
         <ul className={`menu-items ${isMenuOpen ? "open" : ""}`}>
           <li>
             <Link to={"/"} onClick={toggleMenu}>
