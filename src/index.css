@@ -26,6 +26,19 @@ h2 {
   font-size: 40px;
 }
 
+.cart-icon {
+  width: 100px;
+}
+
+.cart-style {
+  height: 100px;
+  margin-left: 15px;
+}
+
+.cart-header {
+  text-align: center;
+}
+
 .home {
   width: 100%;
   height: 100vh;
