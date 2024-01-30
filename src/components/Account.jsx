@@ -34,7 +34,7 @@ export default function Account() {
       <div className="account-overlay">
         <video src={drinkMoreVid} autoPlay loop muted />
         <div className="account-content">
-          {user && user.token ? (
+          {user ? (
             <>
               <h2>Welcome back, {user.username}!</h2>
               <button className="btn btn1" onClick={startShoppingHandler}>

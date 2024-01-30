@@ -21,7 +21,7 @@ export async function registerUser(userObj) {
 
 export async function getUser(token) {
   try {
-    const resp = await fetch(`${API_URL}/users`, {
+    const resp = await fetch(`${API_URL}/users/account`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

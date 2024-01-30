@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [bittersCartItems, setBittersCartItems] = useState([]);
   const [shrubsCartItems, setShrubsCartItems] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     // Get bitters cart items from local storage
@@ -91,6 +93,14 @@ const Cart = () => {
           ))
         )}
         <p>Total Price (Shrubs): ${shrubsTotal.toFixed(2)}</p>
+      </div>
+
+      <div className="checkout-button-container">
+        {bittersCartItems.length > 0 || shrubsCartItems.length > 0 ? (
+          <Link to="/checkout" state={{ totalAmount }} className="btn btn1">
+            Checkout
+          </Link>
+        ) : null}
       </div>
     </>
   );

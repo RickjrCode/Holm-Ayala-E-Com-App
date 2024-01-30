@@ -11,6 +11,7 @@ import {
   Home,
   Shrubs,
   Cart,
+  Checkout,
 } from "./components";
 
 import React from "react";
@@ -43,6 +44,7 @@ function App() {
         />
         <Route path="/shrubs" element={<Shrubs />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );

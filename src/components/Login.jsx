@@ -18,6 +18,7 @@ export default function Login({ setToken }) {
 
     try {
       const token = await loginUser(userObj);
+      localStorage.setItem("token", token);
       setToken(token);
       // Navigate to "bitters" route with the user's token
       navigate("/bitters", { state: { username: userObj.username } });
