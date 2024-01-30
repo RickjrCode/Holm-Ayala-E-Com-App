@@ -77,9 +77,11 @@ export default function Shrubs() {
             onChange={(e) => setSearchShrubs(e.target.value.toLowerCase())}
           />
         </div>
-        <button className="btn btn1" onClick={handleSignOut}>
-          Sign Out
-        </button>
+        {token ? (
+          <button className="btn btn1" onClick={handleSignOut}>
+            Sign Out
+          </button>
+        ) : null}
 
         <div className="bitters-name">
           <h2>Our Shrubs</h2>

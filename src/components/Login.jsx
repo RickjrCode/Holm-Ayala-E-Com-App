@@ -15,11 +15,17 @@ export default function Login({ setToken }) {
       username,
       password,
     };
-    const token = await loginUser(userObj);
-    setToken(token);
-    navigate("/account");
-    console.log(userObj);
+
+    try {
+      const token = await loginUser(userObj);
+      setToken(token);
+      // Navigate to "bitters" route with the user's token
+      navigate("/bitters", { state: { username: userObj.username } });
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   }
+
   return (
     <div className="login-form">
       <img id="logo-img" src={drinkLogo} alt="Drink Logo" />
@@ -33,7 +39,7 @@ export default function Login({ setToken }) {
             onChange={(event) => {
               setUsername(event.target.value);
             }}
-          />{" "}
+          />
           <label htmlFor="email">
             <i className="fa-solid fa-envelope"></i> Email
           </label>
