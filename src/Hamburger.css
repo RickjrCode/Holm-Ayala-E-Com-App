@@ -35,19 +35,18 @@
 .menu-items {
   display: none;
   flex-direction: column;
-  background-color: #333;
+  background-color: crimson;
   width: 200px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 60px;
   left: 0;
   z-index: 1;
-  border-top: 2px solid #fff;
   border-radius: 10px;
 }
 
 .menu-items a {
-  color: #fff;
+  color: black;
   text-decoration: none;
   padding: 15px;
   display: block;
@@ -60,7 +59,8 @@
 }
 
 .menu-items a:hover {
-  background-color: #555;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .menu-icon.open .bar1 {

@@ -6,3 +6,4 @@ export { default as Navigation } from "./Navigation";
 export { default as Register } from "./Register";
 export { default as Shrubs } from "./Shrubs";
 export { default as Cart } from "./Cart";
+export { default as Checkout } from "./Checkout";

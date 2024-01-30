@@ -15,6 +15,7 @@ import {
   Home,
   Shrubs,
   Cart,
+  Checkout,
 } from "./components";
 >>>>>>> 4f543489f75472123f144422ba12fe42c5b840ba
 
@@ -48,6 +49,7 @@ function App() {
         />
         <Route path="/shrubs" element={<Shrubs />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );
