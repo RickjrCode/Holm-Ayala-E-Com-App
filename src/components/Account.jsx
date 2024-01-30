@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import drinkMoreVid from "../assets/more-drinks.mp4";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser } from "../api/ajaxHelper";
+import { useUserContext } from "../userContext";
 
-export default function Account({ token }) {
+export default function Account() {
+  const { token } = useUserContext();
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,7 +24,10 @@ export default function Account({ token }) {
     }
   }, [token]);
 
-  const navigate = useNavigate();
+  const startShoppingHandler = () => {
+    // Navigate to the "bitters" route with the user's token
+    navigate("/bitters", { state: { username: user.username, token } });
+  };
 
   return (
     <div className="account">
@@ -29,7 +35,12 @@ export default function Account({ token }) {
         <video src={drinkMoreVid} autoPlay loop muted />
         <div className="account-content">
           {user && user.token ? (
-            <h2>Welcome back, {user.username}!</h2>
+            <>
+              <h2>Welcome back, {user.username}!</h2>
+              <button className="btn btn1" onClick={startShoppingHandler}>
+                Start Shopping
+              </button>
+            </>
           ) : (
             <>
               <h2>Looks like you don't have an account</h2>

@@ -51,6 +51,9 @@ const Cart = () => {
       <div className="cart-header">
         <h2>Your Cart</h2>
       </div>
+      <div className="total-container">
+        <h3>Total Price: ${total.toFixed(2)}</h3>
+      </div>
 
       <div className="bitters-container">
         <h3>Bitters</h3>
@@ -88,10 +91,6 @@ const Cart = () => {
           ))
         )}
         <p>Total Price (Shrubs): ${shrubsTotal.toFixed(2)}</p>
-      </div>
-
-      <div className="total-container">
-        <h3>Total Price (All Products): ${total.toFixed(2)}</h3>
       </div>
     </>
   );
