@@ -10,7 +10,8 @@ export default function Bitters() {
   const [searchBitters, setSearchBitters] = useState("");
   const [storedBitters, setStoredBitters] = useState([]);
   const [showDescription, setShowDescription] = useState({});
-  const [bittersCartItems, setBittersCartItems] = useState([]); // Separate state for bitters cart
+  const [bittersCartItems, setBittersCartItems] = useState([]);
+  const [addToCartCount, setAddToCartCount] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
   const { username } = location.state || {};
@@ -53,6 +54,8 @@ export default function Bitters() {
         "bittersCartItems",
         JSON.stringify(updatedCartItems)
       );
+
+      setAddToCartCount((prevCount) => prevCount + 1);
     } else {
       navigate("/account");
     }
@@ -113,7 +116,9 @@ export default function Bitters() {
                       className="btn btn1"
                       onClick={() => handleAddToCart(product)}
                     >
-                      {token ? "Add to Cart" : "Go to Account"}
+                      {token
+                        ? `Add to Cart (${addToCartCount})`
+                        : "Go to Account"}
                     </button>
                   </>
                 )}

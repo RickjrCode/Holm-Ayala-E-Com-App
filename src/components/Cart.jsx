@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [bittersCartItems, setBittersCartItems] = useState([]);
   const [shrubsCartItems, setShrubsCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get bitters cart items from local storage
@@ -73,7 +75,7 @@ const Cart = () => {
             </div>
           ))
         )}
-        <p>Total Price (Bitters): ${bittersTotal.toFixed(2)}</p>
+        <p> ${bittersTotal.toFixed(2)}</p>
       </div>
 
       <div className="bitters-container">
@@ -92,12 +94,16 @@ const Cart = () => {
             </div>
           ))
         )}
-        <p>Total Price (Shrubs): ${shrubsTotal.toFixed(2)}</p>
+        <p> ${shrubsTotal.toFixed(2)}</p>
       </div>
 
-      <div className="checkout-button-container">
+      <div className="bottom-center">
         {bittersCartItems.length > 0 || shrubsCartItems.length > 0 ? (
-          <Link to="/checkout" state={{ totalAmount }} className="btn btn1">
+          <Link
+            to="/checkout"
+            state={{ totalAmount }}
+            className="checkout-button"
+          >
             Checkout
           </Link>
         ) : null}

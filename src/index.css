@@ -172,6 +172,28 @@ button {
   color: white;
 }
 
+.checkout-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.checkout-button {
+  font-size: large;
+  font-weight: bold;
+  background-color: crimson;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  text-decoration: none;
+}
+
+.checkout-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
 @media (max-width: 768px) {
   .logo {
     justify-content: flex-end;
