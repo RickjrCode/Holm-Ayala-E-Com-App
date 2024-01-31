@@ -10,7 +10,8 @@ export default function Shrubs() {
   const [searchShrubs, setSearchShrubs] = useState("");
   const [storedShrubs, setStoredShrubs] = useState([]);
   const [showDescription, setShowDescription] = useState({});
-  const [shrubsCartItems, setShrubsCartItems] = useState([]); // Separate state for shrubs cart
+  const [shrubsCartItems, setShrubsCartItems] = useState([]);
+  const [addToCartCount, setAddToCartCount] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
   const { username } = location.state || {};
@@ -50,6 +51,8 @@ export default function Shrubs() {
       const updatedCartItems = [...shrubsCartItems, product];
       setShrubsCartItems(updatedCartItems);
       localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
+
+      setAddToCartCount((prevCount) => prevCount + 1);
     } else {
       navigate("/account");
     }
@@ -110,7 +113,9 @@ export default function Shrubs() {
                       className="btn btn1"
                       onClick={() => handleAddToCart(product)}
                     >
-                      {token ? "Add to Cart" : "Go to Account"}
+                      {token
+                        ? `Add to Cart (${addToCartCount})`
+                        : "Go to Account"}
                     </button>
                   </>
                 )}

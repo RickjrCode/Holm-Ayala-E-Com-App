@@ -1,4 +1,5 @@
 import React from "react";
+import drinkLogo from "../assets/bitters-drink.png";
 
 const Checkout = (props) => {
   const totalAmount = props.location?.state?.totalAmount ?? 0;
@@ -6,7 +7,8 @@ const Checkout = (props) => {
 
   return (
     <div className="checkout-container">
-      <h2>Thank you for your purchase!</h2>
+      <img id="logo-img" src={drinkLogo} alt="Drink Logo" />
+      <h2 style={{ textAlign: "center" }}>Thank you for your purchase!</h2>
     </div>
   );
 };
