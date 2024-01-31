@@ -11,7 +11,7 @@ export default function Shrubs() {
   const [storedShrubs, setStoredShrubs] = useState([]);
   const [showDescription, setShowDescription] = useState({});
   const [shrubsCartItems, setShrubsCartItems] = useState([]);
-  const [addToCartCount, setAddToCartCount] = useState(0);
+  const [addToCartCounts, setAddToCartCounts] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const { username } = location.state || {};
@@ -48,11 +48,19 @@ export default function Shrubs() {
 
   const handleAddToCart = (product) => {
     if (token) {
-      const updatedCartItems = [...shrubsCartItems, product];
-      setShrubsCartItems(updatedCartItems);
-      localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
+      const updatedCounts = {
+        ...addToCartCounts,
+        [product.id]: (addToCartCounts[product.id] || 0) + 1,
+      };
+      setAddToCartCounts(updatedCounts);
 
-      setAddToCartCount((prevCount) => prevCount + 1);
+      const updatedCartItems = [
+        ...shrubsCartItems,
+        { ...product, count: updatedCounts[product.id] || 1 },
+      ];
+      setShrubsCartItems(updatedCartItems);
+
+      localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
     } else {
       navigate("/account");
     }
@@ -68,7 +76,7 @@ export default function Shrubs() {
       <div className="page-container">
         {token ? (
           <div className="welcome-message">
-            <h2>Welcome back, {username}!</h2>
+            <h2>Welcome {username}</h2>
           </div>
         ) : null}
 
@@ -114,7 +122,7 @@ export default function Shrubs() {
                       onClick={() => handleAddToCart(product)}
                     >
                       {token
-                        ? `Add to Cart (${addToCartCount})`
+                        ? `Add to Cart (${addToCartCounts[product.id] || 0})`
                         : "Go to Account"}
                     </button>
                   </>

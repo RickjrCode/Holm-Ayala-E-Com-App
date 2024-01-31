@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+import cartAnimation from "../assets/cartAnime.json";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -20,7 +22,18 @@ const Cart = () => {
     if (storedShrubsCartItems) {
       setShrubsCartItems(JSON.parse(storedShrubsCartItems));
     }
-  }, []);
+
+    // Calculate total amount
+    const bittersTotal = bittersCartItems.reduce(
+      (acc, product) => acc + product.price,
+      0
+    );
+    const shrubsTotal = shrubsCartItems.reduce(
+      (acc, product) => acc + product.price,
+      0
+    );
+    setTotalAmount(bittersTotal + shrubsTotal);
+  }, [bittersCartItems, shrubsCartItems]);
 
   const removeFromBittersCart = (productId) => {
     const updatedCartItems = bittersCartItems.filter(
@@ -47,68 +60,78 @@ const Cart = () => {
     0
   );
 
-  // Calculate total price for all products
-  const total = bittersTotal + shrubsTotal;
-
   return (
-    <>
-      <div className="cart-header">
-        <h2>Your Cart</h2>
-      </div>
-      <div className="total-container">
-        <h3>Total Price: ${total.toFixed(2)}</h3>
-      </div>
+    <div className="cart-container">
+      {bittersCartItems.length === 0 && shrubsCartItems.length === 0 ? (
+        <>
+          <h2>Wow! Your cart is so empty.</h2>
+          <Lottie
+            loop={true}
+            animationData={cartAnimation}
+            style={{ width: "40%", height: "80%", margin: "auto" }}
+          />
+        </>
+      ) : (
+        <>
+          <div className="cart-header">
+            <h2>Your Cart</h2>
+          </div>
+          <div className="total-container">
+            <h3>Total Price: ${totalAmount.toFixed(2)}</h3>
+          </div>
 
-      <div className="bitters-container">
-        <h3>Bitters</h3>
-        {bittersCartItems.length === 0 ? (
-          <p>No bitters in your cart</p>
-        ) : (
-          bittersCartItems.map((product) => (
-            <div className="bitters-card" key={product.id}>
-              <h3>{product.name}</h3>
-              <img src={product.imgUrl} alt={product.name} />
-              <p>{product.price}</p>
-              <button onClick={() => removeFromBittersCart(product.id)}>
-                Remove
-              </button>
-            </div>
-          ))
-        )}
-        <p> ${bittersTotal.toFixed(2)}</p>
-      </div>
+          <div className="bitters-container">
+            <h3>Bitters</h3>
+            {bittersCartItems.length === 0 ? (
+              <p>No bitters in your cart</p>
+            ) : (
+              bittersCartItems.map((product) => (
+                <div className="bitters-card" key={product.id}>
+                  <h3>{product.name}</h3>
+                  <img src={product.imgUrl} alt={product.name} />
+                  <p>{product.price}</p>
+                  <button onClick={() => removeFromBittersCart(product.id)}>
+                    Remove
+                  </button>
+                </div>
+              ))
+            )}
+            <p> ${bittersTotal.toFixed(2)}</p>
+          </div>
 
-      <div className="bitters-container">
-        <h3>Shrubs</h3>
-        {shrubsCartItems.length === 0 ? (
-          <p>No shrubs in your cart</p>
-        ) : (
-          shrubsCartItems.map((product) => (
-            <div className="bitters-card" key={product.id}>
-              <h3>{product.name}</h3>
-              <img src={product.imgUrl} alt={product.name} />
-              <p>{product.price}</p>
-              <button onClick={() => removeFromShrubsCart(product.id)}>
-                Remove
-              </button>
-            </div>
-          ))
-        )}
-        <p> ${shrubsTotal.toFixed(2)}</p>
-      </div>
+          <div className="bitters-container">
+            <h3>Shrubs</h3>
+            {shrubsCartItems.length === 0 ? (
+              <p>No shrubs in your cart</p>
+            ) : (
+              shrubsCartItems.map((product) => (
+                <div className="bitters-card" key={product.id}>
+                  <h3>{product.name}</h3>
+                  <img src={product.imgUrl} alt={product.name} />
+                  <p>{product.price}</p>
+                  <button onClick={() => removeFromShrubsCart(product.id)}>
+                    Remove
+                  </button>
+                </div>
+              ))
+            )}
+            <p> ${shrubsTotal.toFixed(2)}</p>
+          </div>
 
-      <div className="bottom-center">
-        {bittersCartItems.length > 0 || shrubsCartItems.length > 0 ? (
-          <Link
-            to="/checkout"
-            state={{ totalAmount }}
-            className="checkout-button"
-          >
-            Checkout
-          </Link>
-        ) : null}
-      </div>
-    </>
+          <div className="bottom-center">
+            {(bittersCartItems.length > 0 || shrubsCartItems.length > 0) && (
+              <Link
+                to="/checkout"
+                state={{ totalAmount }}
+                className="checkout-button"
+              >
+                Checkout
+              </Link>
+            )}
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
