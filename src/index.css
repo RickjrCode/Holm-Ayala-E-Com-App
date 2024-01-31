@@ -26,6 +26,18 @@ h2 {
   font-size: 40px;
 }
 
+/* Cart.css */
+
+.cart-container {
+  text-align: center;
+  margin-top: 20%;
+}
+
+.cart-empty-message {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
 .cart-icon {
   width: 100px;
 }

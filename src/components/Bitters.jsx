@@ -11,7 +11,7 @@ export default function Bitters() {
   const [storedBitters, setStoredBitters] = useState([]);
   const [showDescription, setShowDescription] = useState({});
   const [bittersCartItems, setBittersCartItems] = useState([]);
-  const [addToCartCount, setAddToCartCount] = useState(0);
+  const [addToCartCounts, setAddToCartCounts] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const { username } = location.state || {};
@@ -48,14 +48,22 @@ export default function Bitters() {
 
   const handleAddToCart = (product) => {
     if (token) {
-      const updatedCartItems = [...bittersCartItems, product];
+      const updatedCounts = {
+        ...addToCartCounts,
+        [product.id]: (addToCartCounts[product.id] || 0) + 1,
+      };
+      setAddToCartCounts(updatedCounts);
+
+      const updatedCartItems = [
+        ...bittersCartItems,
+        { ...product, count: updatedCounts[product.id] || 1 },
+      ];
       setBittersCartItems(updatedCartItems);
+
       localStorage.setItem(
         "bittersCartItems",
         JSON.stringify(updatedCartItems)
       );
-
-      setAddToCartCount((prevCount) => prevCount + 1);
     } else {
       navigate("/account");
     }
@@ -71,7 +79,7 @@ export default function Bitters() {
       <div className="page-container">
         {token ? (
           <div className="welcome-message">
-            <h2>Welcome back, {username}!</h2>
+            <h2>Welcome {username}</h2>
           </div>
         ) : null}
 
@@ -117,7 +125,7 @@ export default function Bitters() {
                       onClick={() => handleAddToCart(product)}
                     >
                       {token
-                        ? `Add to Cart (${addToCartCount})`
+                        ? `Add to Cart (${addToCartCounts[product.id] || 0})`
                         : "Go to Account"}
                     </button>
                   </>
