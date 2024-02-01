@@ -7,9 +7,12 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const [bittersCartItems, setBittersCartItems] = useState([]);
   const [shrubsCartItems, setShrubsCartItems] = useState([]);
+  const [bittersTotal, setBittersTotal] = useState(0);
+  const [shrubsTotal, setShrubsTotal] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
 
+  //separated the useEffects to remove infinite loop
   useEffect(() => {
     // Get bitters cart items from local storage
     const storedBittersCartItems = localStorage.getItem("bittersCartItems");
@@ -22,16 +25,24 @@ const Cart = () => {
     if (storedShrubsCartItems) {
       setShrubsCartItems(JSON.parse(storedShrubsCartItems));
     }
+  }, []);
 
-    // Calculate total amount
+  useEffect(() => {
+    // Calculate bitters total
     const bittersTotal = bittersCartItems.reduce(
       (acc, product) => acc + product.price,
       0
     );
+    setBittersTotal(bittersTotal);
+
+    // Calculate shrubs total
     const shrubsTotal = shrubsCartItems.reduce(
       (acc, product) => acc + product.price,
       0
     );
+    setShrubsTotal(shrubsTotal);
+
+    // Calculate total amount
     setTotalAmount(bittersTotal + shrubsTotal);
   }, [bittersCartItems, shrubsCartItems]);
 
@@ -50,15 +61,6 @@ const Cart = () => {
     setShrubsCartItems(updatedCartItems);
     localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
   };
-
-  const bittersTotal = bittersCartItems.reduce(
-    (acc, product) => acc + product.price,
-    0
-  );
-  const shrubsTotal = shrubsCartItems.reduce(
-    (acc, product) => acc + product.price,
-    0
-  );
 
   return (
     <div className="cart-container">
