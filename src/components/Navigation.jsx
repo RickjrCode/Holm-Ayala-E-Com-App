@@ -32,7 +32,7 @@ export default function Navigation() {
         </div>
         <div className="cart-icon">
           <Link className="cart-style" to={"/cart"} onClick={handleCartClick}>
-            <i class="fa-sharp fa-solid fa-cart-shopping fa-2xl"></i>
+            <i className="fa-sharp fa-solid fa-cart-shopping fa-2xl"></i>
           </Link>
         </div>
         <ul className={`menu-items ${isMenuOpen ? "open" : ""}`}>
