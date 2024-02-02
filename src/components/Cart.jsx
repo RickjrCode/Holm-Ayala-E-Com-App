@@ -61,7 +61,7 @@ const Cart = () => {
     setShrubsCartItems(updatedCartItems);
     localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
   };
-
+  console.log(bittersCartItems);
   return (
     <div className="cart-container">
       {bittersCartItems.length === 0 && shrubsCartItems.length === 0 ? (
@@ -90,8 +90,9 @@ const Cart = () => {
               bittersCartItems.map((product) => (
                 <div className="bitters-card" key={product.id}>
                   <h3>{product.name}</h3>
+                  <h3>QTY:{product.count}</h3>
                   <img src={product.imgUrl} alt={product.name} />
-                  <p>{product.price}</p>
+                  <p>${product.price}.00</p>
                   <button onClick={() => removeFromBittersCart(product.id)}>
                     Remove
                   </button>
@@ -109,8 +110,9 @@ const Cart = () => {
               shrubsCartItems.map((product) => (
                 <div className="bitters-card" key={product.id}>
                   <h3>{product.name}</h3>
+                  <h3>QTY:{product.count}</h3>
                   <img src={product.imgUrl} alt={product.name} />
-                  <p>{product.price}</p>
+                  <p>${product.price}.00</p>
                   <button onClick={() => removeFromShrubsCart(product.id)}>
                     Remove
                   </button>
