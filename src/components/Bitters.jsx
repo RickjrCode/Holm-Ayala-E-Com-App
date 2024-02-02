@@ -53,17 +53,34 @@ export default function Bitters() {
         [product.id]: (addToCartCounts[product.id] || 0) + 1,
       };
       setAddToCartCounts(updatedCounts);
+      const result = bittersCartItems.find((item) => item.id == product.id);
+      console.log(result, updatedCounts);
+      if (!result) {
+        console.log("no result");
+        const updatedCartItems = [
+          ...bittersCartItems,
+          { ...product, count: updatedCounts[product.id] || 1 },
+        ];
+        setBittersCartItems(updatedCartItems);
 
-      const updatedCartItems = [
-        ...bittersCartItems,
-        { ...product, count: updatedCounts[product.id] || 1 },
-      ];
-      setBittersCartItems(updatedCartItems);
-
-      localStorage.setItem(
-        "bittersCartItems",
-        JSON.stringify(updatedCartItems)
-      );
+        localStorage.setItem(
+          "bittersCartItems",
+          JSON.stringify(updatedCartItems)
+        );
+      } else {
+        const otherItems = bittersCartItems.filter(
+          (bitter) => bitter.id != product.id
+        );
+        const updatedCartItems = [
+          ...otherItems,
+          { ...product, count: updatedCounts[product.id] },
+        ];
+        setBittersCartItems(updatedCartItems);
+        localStorage.setItem(
+          "bittersCartItems",
+          JSON.stringify(updatedCartItems)
+        );
+      }
     } else {
       navigate("/account");
     }
@@ -110,6 +127,7 @@ export default function Bitters() {
               <div className="bitters-card" key={product.id}>
                 <h3>{product.name}</h3>
                 <img src={product.imgUrl} alt={product.name} />
+                <h3>${product.price}.00</h3>
                 <button
                   className="btn btn1"
                   onClick={() => toggleDescription(product.id)}

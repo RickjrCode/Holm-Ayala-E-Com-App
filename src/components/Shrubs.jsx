@@ -53,14 +53,31 @@ export default function Shrubs() {
         [product.id]: (addToCartCounts[product.id] || 0) + 1,
       };
       setAddToCartCounts(updatedCounts);
+      const result = shrubsCartItems.find((item) => item.id == product.id);
+      console.log(result, updatedCounts);
+      if (!result) {
+        console.log("no result");
+        const updatedCartItems = [
+          ...shrubsCartItems,
+          { ...product, count: updatedCounts[product.id] || 1 },
+        ];
+        setShrubsCartItems(updatedCartItems);
 
-      const updatedCartItems = [
-        ...shrubsCartItems,
-        { ...product, count: updatedCounts[product.id] || 1 },
-      ];
-      setShrubsCartItems(updatedCartItems);
-
-      localStorage.setItem("shrubsCartItems", JSON.stringify(updatedCartItems));
+        localStorage.setItem(
+          "shrubsCartItems",
+          JSON.stringify(updatedCartItems)
+        );
+      } else {
+        const otherItems = shrubsCartItems.filter(
+          (shrubs) => shrubs.id != product.id
+        );
+        const updatedCartItems = [
+          ...otherItems,
+          { ...product, count: updatedCounts[product.id] },
+        ];
+        setShrubsCartItems(updatedCartItems);
+        localStorage.setItem("shrubsCartItem", JSON.stringify(updatedCounts));
+      }
     } else {
       navigate("/account");
     }
@@ -107,6 +124,7 @@ export default function Shrubs() {
               <div className="bitters-card" key={product.id}>
                 <h3>{product.name}</h3>
                 <img src={product.imgUrl} alt={product.name} />
+                <h3>${product.price}.00</h3>
                 <button
                   className="btn btn1"
                   onClick={() => toggleDescription(product.id)}
