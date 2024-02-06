@@ -1,7 +1,3 @@
-
-import "./App.css";
-
-
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "./api/ajaxHelper";
@@ -18,8 +14,6 @@ import {
   Checkout,
 } from "./components";
 
-
-import React from "react";
 
 function App() {
   const [token, setToken] = useState(null);
